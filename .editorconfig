@@ -1,0 +1,24 @@
+; Top-most EditorConfig file
+root = true
+
+; 2-column tab indentation
+[*.cs]
+indent_style = space
+indent_size = 3
+
+[*.jsx]
+indent_style = space
+indent_size = 3
+
+[*.js]
+indent_style = space
+indent_size = 3
+
+[*.html]
+indent_style = space
+indent_size = 3
+
+
+[*.json]
+indent_style = space
+indent_size = 3

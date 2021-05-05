@@ -7,10 +7,10 @@ Please find below the information about the application that you’re going to b
   - Authentication
   - Database persistence is optional (In-memory persistence or using SQL Server)
   - A product consists of 4 properties
-  - Id
-  - Name
-  - Price
-  - Description
+    - Id
+    - Name
+    - Price
+    - Description
 - 5 REST APIs
   - Get product by ID
   - Get all products

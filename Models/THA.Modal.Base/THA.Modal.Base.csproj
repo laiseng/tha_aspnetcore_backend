@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\THA.Modal.Base\THA.Modal.Base.csproj" />
     <ProjectReference Include="..\THA.Modal.Core\THA.Modal.Core.csproj" />
   </ItemGroup>
 
