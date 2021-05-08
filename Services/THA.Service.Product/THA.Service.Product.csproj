@@ -5,8 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\THA.Core.Authorization\THA.Core.Authorization.csproj" />
-    <ProjectReference Include="..\..\Models\THA.Model.Account\THA.Model.Account.csproj" />
     <ProjectReference Include="..\THA.Service.Base\THA.Service.Base.csproj" />
   </ItemGroup>
 

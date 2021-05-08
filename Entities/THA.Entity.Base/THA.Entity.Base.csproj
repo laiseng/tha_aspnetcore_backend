@@ -10,7 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Models\THA.Model.User\THA.Model.User.csproj" />
+    <ProjectReference Include="..\..\Models\THA.Model.Base\THA.Model.Base.csproj" />
+    <ProjectReference Include="..\..\Models\THA.Model.Base\THA.Model.Base.csproj" />
+    <ProjectReference Include="..\..\Models\THA.Model.Core\THA.Model.Core.csproj" />
   </ItemGroup>
 
 </Project>

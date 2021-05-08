@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\THA.Entity.Base\THA.Entity.Base.csproj" />
+    <ProjectReference Include="..\THA.Entity.Products\THA.Entity.Products.csproj" />
+    <ProjectReference Include="..\THA.Entity.Users\THA.Entity.Users.csproj" />
+  </ItemGroup>
+
+</Project>
