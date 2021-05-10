@@ -31,9 +31,10 @@ Please find below the information about the application that you’re going to b
 
 1. It's a ASP.NET Core v5
 2. EF Core In-Memory DB
-3. it uses serilog package to output to console and also txt file in `%programdata%/tha`
+3. it uses serilog package to output to console and also txt file in `%programdata%/tha/`
 4. It uses simple authentication login and generate JWT token through **HTTP POST** `api/account` api
 5. all API Authorization requires a simple simple bearer token header and uses Authorization Policy filter
+6. Global error handling is implemented using `IApplicationBuilder` extension class called `ErrorHandlerMiddlewareExtension`
 
 ## How to run
 
