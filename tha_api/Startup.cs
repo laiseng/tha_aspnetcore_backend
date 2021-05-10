@@ -27,6 +27,7 @@ namespace THA_Api
 
       }
 
+      readonly string ALLOWED_ORIGINS = "allowSpecificOrigins";
       public IConfiguration Configuration { get; }
       private AppSetting _appSetting { get; }
 
@@ -34,6 +35,17 @@ namespace THA_Api
       public void ConfigureServices(IServiceCollection services)
       {
          services.Configure<AppSetting>(Configuration.GetSection("AppSetting"));
+
+         services.AddCors(options =>
+         {
+            options.AddPolicy(name: ALLOWED_ORIGINS,
+                              builder =>
+                              {
+                                 builder.AllowAnyOrigin();
+                                 builder.AllowAnyHeader();
+                              });
+         });
+
 
          // Configure DBContext
          services.AddDbContext<MainContext>(options => { options.UseInMemoryDatabase("tha_db"); });
@@ -51,7 +63,7 @@ namespace THA_Api
                   ValidateLifetime = true,
                   ValidateIssuerSigningKey = true,
                   ValidIssuer = _appSetting.Jwt.Issuer,
-                  ValidAudience = _appSetting.Jwt.Issuer,
+                  ValidAudiences = _appSetting.Jwt.Audiences,
                   IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSetting.Jwt.Key))
                };
             });
@@ -102,6 +114,7 @@ namespace THA_Api
          app.UseHttpsRedirection();
 
          app.UseRouting();
+         app.UseCors(ALLOWED_ORIGINS);
 
          app.UseAuthentication();
          app.UseAuthorization();
