@@ -1,6 +1,10 @@
 # Table of Context
 
-- [Take Home Assignment Description](#Take-Home-Assignment-Description)
+- [Table of Context](#table-of-context)
+  - [Take Home Assignment Description](#take-home-assignment-description)
+  - [Implementation](#implementation)
+  - [How this App DB Context work](#how-this-app-db-context-work)
+  - [How to run](#how-to-run)
 
 - [Implementation](#Implementation)
 
@@ -36,6 +40,16 @@ Please find below the information about the application that you’re going to b
 5. all API Authorization requires a simple simple bearer token header and uses Authorization Policy filter
 6. Global error handling is implemented using `IApplicationBuilder` extension class called `ErrorHandlerMiddlewareExtension`
 
+## How this App DB Context work
+1. There is `User` and `Product` DBContext
+2. Delete entity will not physically deleted it, instead it will only set its `STATUS` field to `Statuses.DELETE`. 
+3. Get entity/entities will return all that are not `Statuses.DELETE`. a way of making the deleted record.
+4. User are assigned with Roles of `PRODUCT_ADMIN` or `USER`
+5. `PRODUCT_ADMIN` role can Add and Delete product
+6. `USER` role can get one or all products
+7. Authorization Policy will use the role as well.
+8. To prevent conflicting update or out of date update, i use `EDIT_DATE` as concurrency token field to check if user tries to update out of date entity and return proper status code 409 accordingly
+9. `THA.DBInit.csproj` are use to populate sample Users and Products into in memory database with test/mock data for immediate API invocation once the application is started.
 ## How to run
 
 1. to this app just `cd` to `THA_Api` folder and run `dotnet run`
