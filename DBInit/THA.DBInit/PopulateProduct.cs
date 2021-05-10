@@ -11,9 +11,69 @@ namespace THA.DBInit
 {
    public class PopulateProducts
    {
-      public static void PopulateProductsIfNotExist(IHost host)
+      public static DateTime MOCK_DB_ROW_DATE = DateTime.Parse("2021-01-10T05:24:34.088Z");
+      public static ProductModel[] MOCK_PRODUCTS = new ProductModel[]
+        {
+            new ProductModel{
+               ID = new Guid("bbbbb5aa-b5cc-4ae3-9c96-4ab8b969db90"),
+               CREATE_BY =  new Guid("00000000-0000-0000-0000-000000000000"),
+               EDIT_BY =  new Guid("00000000-0000-0000-0000-000000000000"),
+               CREATE_DATE = MOCK_DB_ROW_DATE,
+               EDIT_DATE = MOCK_DB_ROW_DATE,
+               STATUS = Statuses.NEW,
+               DESCRIPTION="Red Ball",
+               NAME="Red Ball",
+               PRICE="10"
+            },
+            new ProductModel{
+               ID = new Guid("bbbbb5aa-b5cc-4ae3-9c96-4ab8b969db91"),
+               CREATE_BY =  new Guid("00000000-0000-0000-0000-000000000000"),
+               EDIT_BY =  new Guid("00000000-0000-0000-0000-000000000000"),
+               CREATE_DATE = MOCK_DB_ROW_DATE,
+               EDIT_DATE = MOCK_DB_ROW_DATE,
+               STATUS = Statuses.NEW,
+               DESCRIPTION="Green Ball",
+               NAME="Green Ball",
+               PRICE="20"
+            },
+            new ProductModel{
+               ID = new Guid("bbbbb5aa-b5cc-4ae3-9c96-4ab8b969db92"),
+               CREATE_BY =  new Guid("00000000-0000-0000-0000-000000000000"),
+               EDIT_BY =  new Guid("00000000-0000-0000-0000-000000000000"),
+               CREATE_DATE = MOCK_DB_ROW_DATE,
+               EDIT_DATE = MOCK_DB_ROW_DATE,
+               STATUS = Statuses.NEW,
+               DESCRIPTION="Blue Ball",
+               NAME="Blue Ball",
+               PRICE="30"
+            },
+            new ProductModel{
+               ID = new Guid("cbbbb5aa-b5cc-4ae3-9c96-4ab8b969db92"),
+               CREATE_BY =  new Guid("00000000-0000-0000-0000-000000000000"),
+               EDIT_BY =  new Guid("00000000-0000-0000-0000-000000000000"),
+               CREATE_DATE = MOCK_DB_ROW_DATE,
+               EDIT_DATE = MOCK_DB_ROW_DATE,
+               STATUS = Statuses.NEW,
+               DESCRIPTION="Purple Ball",
+               NAME="Purple Ball",
+               PRICE="30"
+            },
+            new ProductModel{
+               ID = new Guid("dbbbb5aa-b5cc-4ae3-9c96-4ab8b969db92"),
+               CREATE_BY =  new Guid("00000000-0000-0000-0000-000000000000"),
+               EDIT_BY =  new Guid("00000000-0000-0000-0000-000000000000"),
+               CREATE_DATE = MOCK_DB_ROW_DATE,
+               EDIT_DATE = MOCK_DB_ROW_DATE,
+               STATUS = Statuses.NEW,
+               DESCRIPTION="PINK Ball",
+               NAME="PINK Ball",
+               PRICE="30"
+            },
+        };
+
+      public static void PopulateProductsIfNotExist(IServiceProvider service)
       {
-         using (var scope = host.Services.CreateScope())
+         using (var scope = service.CreateScope())
          {
             var services = scope.ServiceProvider;
             try
@@ -39,50 +99,13 @@ namespace THA.DBInit
             // DB has been populated nothing to do here
             return;
          }
-
-         var products = new ProductModel[]
-         {
-            new ProductModel{
-               ID = 1,
-               CREATE_BY = 0,
-               EDIT_BY = 0,
-               CREATE_DATE = DateTime.UtcNow,
-               EDIT_DATE = DateTime.UtcNow,
-               STATUS = Statuses.NEW,
-               DESCRIPTION="Red Ball",
-               NAME="Red Ball",
-               PRICE="10"
-            },
-            new ProductModel{
-               ID = 2,
-               CREATE_BY = 0,
-               EDIT_BY = 0,
-               CREATE_DATE = DateTime.UtcNow,
-               EDIT_DATE = DateTime.UtcNow,
-               STATUS = Statuses.NEW,
-               DESCRIPTION="Green Ball",
-               NAME="Green Ball",
-               PRICE="20"
-            },
-            new ProductModel{
-               ID = 3,
-               CREATE_BY = 0,
-               EDIT_BY = 0,
-               CREATE_DATE = DateTime.UtcNow,
-               EDIT_DATE = DateTime.UtcNow,
-               STATUS = Statuses.NEW,
-               DESCRIPTION="Blue Ball",
-               NAME="Blue Ball",
-               PRICE="30"
-            },
-         };
-
-         foreach (var p in products)
+         foreach (var p in MOCK_PRODUCTS)
          {
             context.Products.Add(p);
          }
 
          var sresult = context.SaveChanges();
       }
+
    }
 }

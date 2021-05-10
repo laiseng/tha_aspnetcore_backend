@@ -17,6 +17,7 @@ namespace THA.Service.Product
    {
       private readonly TContext context;
       private readonly IHttpContextAccessor httpContextAccessor;
+      public AbstractRepository() { }
       public AbstractRepository(TContext context, IHttpContextAccessor httpContextAccessor)
       {
          this.context = context;
@@ -34,8 +35,9 @@ namespace THA.Service.Product
          {
             if (entity == null) throw new ArgumentNullException($"{nameof(Update)} entity must not be null");
 
-            var userId = int.Parse(this.httpContextAccessor.HttpContext.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).First().Value);
+            var userId = Guid.Parse(this.httpContextAccessor.HttpContext.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).First().Value);
 
+            entity.ID = Guid.NewGuid();
             entity.CREATE_BY = userId;
             entity.EDIT_BY = userId;
             entity.CREATE_DATE = DateTime.UtcNow;
@@ -46,6 +48,7 @@ namespace THA.Service.Product
 
             var count = await context.SaveChangesAsync();
             return count > 0 ? entity : null;
+
          }
          catch (Exception ex)
          {
@@ -58,7 +61,7 @@ namespace THA.Service.Product
       /// </summary>
       /// <param name="id">entity ID</param>
       /// <returns>returns deleted entity or null if none deleted</returns>
-      public async Task<TEntity> Delete(int id)
+      public async Task<TEntity> Delete(Guid id)
       {
          try
          {
@@ -69,7 +72,7 @@ namespace THA.Service.Product
                return entity;
             }
 
-            var userId = int.Parse(this.httpContextAccessor.HttpContext.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).First().Value);
+            var userId = Guid.Parse(this.httpContextAccessor.HttpContext.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).First().Value);
 
             entity.EDIT_BY = userId;
             entity.EDIT_DATE = DateTime.UtcNow;
@@ -93,7 +96,7 @@ namespace THA.Service.Product
       /// </summary>
       /// <param name="id">entity ID</param>
       /// <returns>returns found entity or null when not found</returns>
-      public async Task<TEntity> Get(int id)
+      public async Task<TEntity> Get(Guid id)
       {
          try
          {
@@ -139,7 +142,8 @@ namespace THA.Service.Product
 
             context.Entry(entity).State = EntityState.Modified;
 
-            entity.EDIT_BY = int.Parse(this.httpContextAccessor.HttpContext.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).First().Value);
+            var userId = Guid.Parse(this.httpContextAccessor.HttpContext.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).First().Value);
+            entity.EDIT_BY = userId;
             entity.EDIT_DATE = DateTime.UtcNow;
             entity.STATUS = Statuses.EDIT;
 

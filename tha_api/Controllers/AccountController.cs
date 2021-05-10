@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using THA.Model.Account;
 using THA.Model.AppSettings;
@@ -22,10 +23,10 @@ namespace THA_Api.Controllers
    {
 
       private readonly ILogger<AccountController> _logger;
+      private readonly IUserRepository _userRepository;
       private readonly IOptions<AppSetting> _appSetting;
-      private readonly UserRepository _userRepository;
 
-      public AccountController(UserRepository userRepository, ILogger<AccountController> logger, IOptions<AppSetting> appSetting)
+      public AccountController(IUserRepository userRepository, ILogger<AccountController> logger, IOptions<AppSetting> appSetting)
       {
          _logger = logger;
          _appSetting = appSetting;
@@ -36,12 +37,14 @@ namespace THA_Api.Controllers
       [AllowAnonymous]
       [HttpPost]
       [ProducesResponseType(201)]
+      [ProducesResponseType(401)]
       async public Task<ActionResult<LoginResponseModel>> Login([FromBody] LoginModel login)
       {
-         var userFound = await this._userRepository.Login(login);
+         this._logger.LogInformation($"whose logging in {JsonSerializer.Serialize(login)}");
+         var userFound = await this._userRepository.ValidateLogin(login);
          if (userFound != null)
          {
-            var tokenString = CreateJWT(userFound);
+            var tokenString = this.CreateJWT(userFound);
             return StatusCode(201, new LoginResponseModel { token = tokenString });
          }
 

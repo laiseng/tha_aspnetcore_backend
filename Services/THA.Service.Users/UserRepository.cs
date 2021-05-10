@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,9 +13,10 @@ using THA.Service.Product;
 
 namespace THA.Service.Users
 {
-   public class UserRepository : AbstractRepository<UserModel, MainContext>
+   public class UserRepository : AbstractRepository<UserModel, MainContext>, IUserRepository
    {
       private readonly MainContext _mainContext;
+      public UserRepository() { }
       public UserRepository(MainContext context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
       {
          this._mainContext = context;
@@ -25,7 +27,7 @@ namespace THA.Service.Users
       /// </summary>
       /// <param name="login">login email and passsword</param>
       /// <returns>return valid logged in user</returns>
-      async public Task<UserModel> Login(LoginModel login)
+      async public Task<UserModel> ValidateLogin(LoginModel login)
       {
          try
          {
@@ -38,7 +40,7 @@ namespace THA.Service.Users
          }
          catch (Exception ex)
          {
-            throw new Exception($"{nameof(Login)} Login failed with message - {ex.Message}");
+            throw new Exception($"{nameof(ValidateLogin)} Login failed with message - {ex.Message}");
          }
 
       }

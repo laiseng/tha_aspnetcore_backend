@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System.Security.Claims;
 using System.Text;
 using THA.Entity.Main;
@@ -14,7 +15,7 @@ using THA.Model.AppSettings;
 using THA.Model.User;
 using THA.Service.Product;
 using THA.Service.Users;
-
+using THA_Api.Extensions;
 namespace THA_Api
 {
    public class Startup
@@ -79,13 +80,14 @@ namespace THA_Api
 
 
          // Configure DI Service
-         services.AddScoped<ProductRepository>();
-         services.AddScoped<UserRepository>();
+         services.AddSingleton<ILogger>(Log.Logger);
+         services.AddScoped<IProductRepository, ProductRepository>();
+         services.AddScoped<IUserRepository, UserRepository>();
 
       }
 
       // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-      public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+      public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger logger)
       {
          if (env.IsDevelopment())
          {
@@ -93,6 +95,9 @@ namespace THA_Api
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "THA_Api v1"));
          }
+         app.UseSerilogRequestLogging();
+
+         app.UseGlobalExceptionHandler(logger);
 
          app.UseHttpsRedirection();
 

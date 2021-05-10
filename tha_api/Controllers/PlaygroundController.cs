@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -78,10 +79,11 @@ namespace THA_Api.Controllers
       }
 
       [HttpGet]
-      async public Task<IActionResult> gp()
+      [Route("{g}")]
+      async public Task<IActionResult> gp(Guid g)
       {
 
-         return new ObjectResult(await this._productRepo.GetAll());
+         return new ObjectResult(g);
 
       }
 

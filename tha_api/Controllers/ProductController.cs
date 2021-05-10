@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
@@ -16,14 +17,12 @@ namespace THA_Api.Controllers
    public class ProductController : ControllerBase
    {
       private readonly ILogger<ProductController> _logger;
-      private readonly IOptions<AppSetting> _appSetting;
-      private readonly ProductRepository _productRepository;
+      private readonly IProductRepository _productRepository;
 
 
-      public ProductController(ProductRepository productRepository, ILogger<ProductController> logger, IOptions<AppSetting> appSetting)
+      public ProductController(IProductRepository productRepository, ILogger<ProductController> logger)
       {
          _logger = logger;
-         _appSetting = appSetting;
          _productRepository = productRepository;
       }
 
@@ -32,10 +31,10 @@ namespace THA_Api.Controllers
       [Route("{productId}")]
       [ProducesResponseType(200)]
       [ProducesResponseType(404)]
-      async public Task<ActionResult<ProductModel>> GetProduct(int productId)
+      async public Task<ActionResult<ProductModel>> GetProduct(Guid productId)
       {
          var found = await _productRepository.Get(productId);
-         return found != null ? new ObjectResult(found) : NotFound();
+         return found != null ? found : NotFound();
       }
 
       [Authorize(policy: "USER")]
@@ -55,20 +54,13 @@ namespace THA_Api.Controllers
       [Route("")]
       [ProducesResponseType(201)]
       [ProducesResponseType(404)]
-      [ProducesResponseType(422)]
       async public Task<ActionResult<ProductModel>> AddProduct([FromBody] ProductModel product)
       {
          if (!ModelState.IsValid) return BadRequest(ModelState);
-         var found = await this._productRepository.Get(product.ID);
-
-         if (found != null)
-         {
-            return StatusCode(422);
-         }
 
          var added = await this._productRepository.Add(product);
 
-         return added != null ? added : NotFound();
+         return added != null ? added : NotFound("Failed to add Product");
       }
 
 
@@ -92,7 +84,8 @@ namespace THA_Api.Controllers
          }
          catch (DBConcurrencyException)
          {
-            return Conflict();
+            this._logger.LogError("Attempt to update product with outdated entity");
+            return Conflict("Failed to update Product with outdated info. refresh and retry update");
          }
       }
 
@@ -102,7 +95,7 @@ namespace THA_Api.Controllers
       [Route("{productId}")]
       [ProducesResponseType(204)]
       [ProducesResponseType(404)]
-      async public Task<ActionResult<ProductModel>> Delete(int productId)
+      async public Task<ActionResult<ProductModel>> Delete(Guid productId)
       {
          var deleted = await this._productRepository.Delete(productId);
          return deleted != null ? deleted : NotFound($"Failed to delete productId : {productId}");

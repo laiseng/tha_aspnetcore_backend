@@ -7,7 +7,7 @@ using THA.Model.Product;
 
 namespace THA.Service.Product
 {
-   public class ProductRepository : AbstractRepository<ProductModel, MainContext>
+   public class ProductRepository : AbstractRepository<ProductModel, MainContext>, IProductRepository
    {
       public ProductRepository(MainContext context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
       {
