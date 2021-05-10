@@ -1,16 +1,10 @@
-# Table of Context
-
-- [Table of Context](#table-of-context)
-  - [Take Home Assignment Description](#take-home-assignment-description)
+# Take Home Assignment
+## Table of content
+  - [Assignment Description](#assignment-description)
   - [Implementation](#implementation)
   - [How this App DB Context work](#how-this-app-db-context-work)
   - [How to run](#how-to-run)
-
-- [Implementation](#Implementation)
-
-- [How to run](#How-to-run)
-
-## Take Home Assignment Description
+## Assignment Description
 
 Please find below the information about the application that you’re going to build.
 
