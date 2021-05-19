@@ -28,13 +28,16 @@ namespace THA.Test.API
          _tester = new EmployeeController(_logger, _mediator);
       }
 
-
       [Fact]
       public async void Get_All_Employees_Found()
       {
+         // Arrange
          A.CallTo(() => _mediator.Send(A<GetEmployeesQuery>._, A<CancellationToken>._)).Returns(new List<EmployeeModel>(PopulateEmployees.MOCK_EMPLOYEES));
 
+         // Act
          var result = await _tester.GetAllCQRS();
+
+         // Assert
          Assert.Equal(result.Value, new List<EmployeeModel>(PopulateEmployees.MOCK_EMPLOYEES));
       }
 
@@ -42,10 +45,14 @@ namespace THA.Test.API
       [Fact]
       public async void Get_All_Employees_404Found()
       {
+         // Arrange
          A.CallTo(() => _mediator.Send(A<GetEmployeesQuery>._, A<CancellationToken>._)).Returns(new List<EmployeeModel>());
+
+         // Act
          var result = await _tester.GetAllCQRS();
+
+         // Assert
          Assert.Equal((int)HttpStatusCode.NotFound, (result.Result as StatusCodeResult)?.StatusCode);
       }
-
    }
 }

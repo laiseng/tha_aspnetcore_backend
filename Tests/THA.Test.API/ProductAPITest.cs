@@ -23,9 +23,6 @@ namespace THA.Test.API
    public class ProductAPITest
    {
       private readonly TestServer _server;
-      //private readonly HttpClient _client;
-
-
 
       public ProductAPITest()
       {
