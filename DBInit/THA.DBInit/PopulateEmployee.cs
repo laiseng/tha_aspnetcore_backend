@@ -36,7 +36,7 @@ namespace THA.DBInit
                  STATUS = Statuses.NEW,
                   FIRST_NAME = "Jane",
                   LAST_NAME="Doe",
-                  EMPLOYEE_STATUS = EmployeeStatuses.Regular
+                  EMPLOYEE_STATUS = EmployeeStatuses.Contractor
                },
                new EmployeeModel{
                   ID =new Guid("85bbb5aa-b5cc-4ae3-9c96-4ab8b969db97"),

@@ -19,13 +19,11 @@ namespace THA_Api.Controllers
    public class EmployeeController : ControllerBase
    {
       private readonly ILogger<EmployeeController> _logger;
-      private readonly IEmployeeRepository _employeeRepository;
       private readonly IMediator _mediator;
 
-      public EmployeeController(IEmployeeRepository employeeRepository, ILogger<EmployeeController> logger, IMediator mediator)
+      public EmployeeController(ILogger<EmployeeController> logger, IMediator mediator)
       {
          _logger = logger;
-         _employeeRepository = employeeRepository;
          _mediator = mediator;
       }
 
@@ -39,11 +37,11 @@ namespace THA_Api.Controllers
          try
          {
             var all = await this._mediator.Send(new GetEmployeesQuery());
-            return all != null ? all : NotFound();
-
+            return all != null && all.Count > 0 ? all : NotFound();
          }
          catch (Exception ex)
          {
+            this._logger.LogError($"Exception: {ex.Message}");
             return BadRequest(ex.Message);
          }
       }

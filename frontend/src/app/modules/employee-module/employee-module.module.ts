@@ -7,12 +7,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { EmployeeStatusStringPipe } from './pipes/employee-status-string.pipe';
 
 const MAT_MODULES = [MatPaginatorModule, MatSortModule, MatTableModule];
 
 @NgModule({
   providers: [EmployeeApiService],
-  declarations: [EmployeeListComponent],
+  declarations: [EmployeeListComponent, EmployeeStatusStringPipe],
   imports: [
     CommonModule,
     ...MAT_MODULES,

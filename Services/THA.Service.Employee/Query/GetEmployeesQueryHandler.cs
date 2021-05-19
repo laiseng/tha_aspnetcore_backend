@@ -1,8 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-//using OrderApi.Data.Repository.v1;
-//using OrderApi.Domain;
 using THA.Model.Employee;
 using System.Collections.Generic;
 
@@ -13,9 +11,9 @@ namespace THA.Service.Employee
    {
       private readonly IEmployeeRepository _employeeRepository;
 
-      public GetEmployeesQueryHandler(IEmployeeRepository orderRepository)
+      public GetEmployeesQueryHandler(IEmployeeRepository employeeRepository)
       {
-         _employeeRepository = orderRepository;
+         _employeeRepository = employeeRepository;
       }
 
       public async Task<List<EmployeeModel>> Handle(GetEmployeesQuery request, CancellationToken cancellationToken)
