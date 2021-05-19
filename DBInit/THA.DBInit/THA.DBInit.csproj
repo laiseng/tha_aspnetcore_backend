@@ -10,10 +10,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\THA.Core.Authorization\THA.Core.Authorization.csproj" />
+    <ProjectReference Include="..\..\Entities\THA.Entity.Employee\THA.Entity.Employee.csproj" />
     <ProjectReference Include="..\..\Entities\THA.Entity.Main\THA.Entity.Main.csproj" />
     <ProjectReference Include="..\..\Entities\THA.Entity.Products\THA.Entity.Products.csproj" />
     <ProjectReference Include="..\..\Entities\THA.Entity.Users\THA.Entity.Users.csproj" />
+    <ProjectReference Include="..\..\Models\THA.Model.Employee\THA.Model.Employee.csproj" />
     <ProjectReference Include="..\..\Models\THA.Model.User\THA.Model.User.csproj" />
+    <ProjectReference Include="..\..\Services\THA.Service.Employee\THA.Service.Employee.csproj" />
   </ItemGroup>
 
 </Project>

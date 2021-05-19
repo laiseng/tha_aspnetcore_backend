@@ -13,9 +13,15 @@ using System.Text;
 using THA.Entity.Main;
 using THA.Model.AppSettings;
 using THA.Model.User;
+using THA.Service.Employee;
 using THA.Service.Product;
 using THA.Service.Users;
 using THA_Api.Extensions;
+using MediatR;
+using System.Reflection;
+using THA.Model.Employee;
+using System.Collections.Generic;
+
 namespace THA_Api
 {
    public class Startup
@@ -92,9 +98,12 @@ namespace THA_Api
 
 
          // Configure DI Service
+         services.AddMediatR(typeof(Startup));
          services.AddSingleton<ILogger>(Log.Logger);
          services.AddScoped<IProductRepository, ProductRepository>();
          services.AddScoped<IUserRepository, UserRepository>();
+         services.AddTransient<IRequestHandler<GetEmployeesQuery, List<EmployeeModel>>, GetEmployeesQueryHandler>();
+         services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
       }
 

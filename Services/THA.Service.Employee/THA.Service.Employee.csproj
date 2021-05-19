@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Entities\THA.Entity.Main\THA.Entity.Main.csproj" />
+    <ProjectReference Include="..\..\Models\THA.Model.Employee\THA.Model.Employee.csproj" />
+    <ProjectReference Include="..\THA.Service.Base\THA.Service.Base.csproj" />
+  </ItemGroup>
+
+</Project>

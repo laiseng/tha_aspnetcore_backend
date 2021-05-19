@@ -8,7 +8,7 @@ using THA.Core.Authorization;
 using THA.Entity.Main;
 using THA.Model.Account;
 using THA.Model.User;
-using THA.Service.Product;
+using THA.Service.Base;
 
 
 namespace THA.Service.Users

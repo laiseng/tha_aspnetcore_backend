@@ -7,9 +7,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Models\THA.Model.Employee\THA.Model.Employee.csproj" />
     <ProjectReference Include="..\THA.Entity.Base\THA.Entity.Base.csproj" />
-    <ProjectReference Include="..\THA.Entity.Employee\THA.Entity.Employee.csproj" />
-    <ProjectReference Include="..\THA.Entity.Products\THA.Entity.Products.csproj" />
-    <ProjectReference Include="..\THA.Entity.Users\THA.Entity.Users.csproj" />
   </ItemGroup>
 
 </Project>

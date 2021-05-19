@@ -9,7 +9,7 @@ using THA.Model.Base;
 using THA.Model.Core;
 using THA.Service.Base;
 
-namespace THA.Service.Product
+namespace THA.Service.Base
 {
    public abstract class AbstractRepository<TEntity, TContext> : IRepositoryBase<TEntity>
        where TEntity : class, IBaseModel

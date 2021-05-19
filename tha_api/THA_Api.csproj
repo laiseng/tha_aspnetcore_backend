@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.5" />
     <PackageReference Include="Serilog" Version="2.10.0" />
@@ -27,8 +29,10 @@
     <ProjectReference Include="..\Models\THA.Model.AppSettings\THA.Model.AppSetting.csproj" />
     <ProjectReference Include="..\Models\THA.Model.Base\THA.Model.Base.csproj" />
     <ProjectReference Include="..\Models\THA.Model.Core\THA.Model.Core.csproj" />
+    <ProjectReference Include="..\Models\THA.Model.Employee\THA.Model.Employee.csproj" />
     <ProjectReference Include="..\Models\THA.Model.Product\THA.Model.Product.csproj" />
     <ProjectReference Include="..\Models\THA.Model.User\THA.Model.User.csproj" />
+    <ProjectReference Include="..\Services\THA.Service.Employee\THA.Service.Employee.csproj" />
     <ProjectReference Include="..\Services\THA.Service.Product\THA.Service.Product.csproj" />
     <ProjectReference Include="..\Services\THA.Service.Users\THA.Service.Users.csproj" />
   </ItemGroup>

@@ -30,6 +30,7 @@ namespace THA_Api
             //Populate dummy data into in memory db
             PopulateUsers.PopulateUserIfNotExist(host.Services);
             PopulateProducts.PopulateProductsIfNotExist(host.Services);
+            PopulateEmployees.PopulateEmployeesIfNotExist(host.Services);
 
             host.Run();
          }
@@ -41,11 +42,6 @@ namespace THA_Api
          {
             Log.CloseAndFlush();
          }
-
-
-
-
-
       }
 
 
